@@ -4,5 +4,5 @@
 
 vim.opt.autowrite = false
 vim.opt.foldmethod = "manual"
--- vim.opt.cursorline = false
 vim.opt.foldmethod = "manual"
+vim.g.autoformat = false
