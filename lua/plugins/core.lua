@@ -35,6 +35,10 @@ return {
         "tsx",
         "typescript",
       })
+      opts["highligh"] = {
+        enable = true,
+        additional_vim_regex_highlighting = { "org" },
+      }
     end,
   },
 
