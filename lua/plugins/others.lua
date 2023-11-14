@@ -5,7 +5,12 @@ return {
     cmd = "TSPlaygroundToggle",
   },
   {
-    "David-Kunz/gen.nvim",
-    event = "VeryLazy",
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    version = "2.*",
+    opts = {}
   },
+  { "David-Kunz/gen.nvim", cmd = "Gen", },
+  { 'dhruvasagar/vim-zoom', keys= '<C-w>m' },
+  { 'dhruvasagar/vim-table-mode', keys= '<leader>tm' },
 }
