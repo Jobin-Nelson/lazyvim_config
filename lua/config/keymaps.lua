@@ -20,8 +20,8 @@ vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Buff
 -- Terminal
 vim.keymap.set('n', '<A-h>', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', {desc = 'ToggleTerm horizontal split' })
 vim.keymap.set('n', '<A-v>', '<cmd>ToggleTerm size=80 direction=vertical<cr>', {desc = 'ToggleTerm vertical split' })
-vim.keymap.set('t', '<A-h>','<C-\\><C-n><cmd>ToggleTerm direction=horizontal<cr>', {desc = 'ToggleTerm horizontal split' })
-vim.keymap.set('t', '<A-v>','<C-\\><C-n><cmd>ToggleTerm direction=vertical<cr>', {desc = 'ToggleTerm vertical split' })
+vim.keymap.set('t', '<A-h>','<esc><cmd>ToggleTerm direction=horizontal<cr>', {desc = 'ToggleTerm horizontal split' })
+vim.keymap.set('t', '<A-v>','<esc><cmd>ToggleTerm direction=vertical<cr>', {desc = 'ToggleTerm vertical split' })
 vim.keymap.set('t', '<C-w>','<C-\\><C-n><C-w>', {desc = 'ToggleTerm window command' })
 
 -- Others
