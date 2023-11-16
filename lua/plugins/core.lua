@@ -35,9 +35,12 @@ return {
         "tsx",
         "typescript",
       })
-      opts["highligh"] = {
+      opts["highlight"] = {
         enable = true,
         additional_vim_regex_highlighting = { "org" },
+      }
+      opts["incremental_selection"] = {
+        enable = false
       }
     end,
   },
@@ -69,7 +72,7 @@ return {
   {
     "folke/noice.nvim",
     opts = function(_, opts)
-    opts.presets.lsp_doc_border = true
+      opts.presets.lsp_doc_border = true
     end,
   },
 }
