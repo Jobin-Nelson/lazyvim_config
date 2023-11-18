@@ -13,4 +13,5 @@ return {
   { "David-Kunz/gen.nvim", cmd = "Gen", },
   { 'dhruvasagar/vim-zoom', keys= '<C-w>m' },
   { 'dhruvasagar/vim-table-mode', keys= '<leader>tm' },
+  { 'sindrets/diffview.nvim', event = "LazyFile", opts = {}},
 }
