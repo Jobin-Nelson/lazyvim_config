@@ -75,4 +75,10 @@ return {
       opts.presets.lsp_doc_border = true
     end,
   },
+  {
+    "rcarriga/nvim-notify",
+    opts= {
+      background_colour = "#000000",
+    }
+  }
 }
