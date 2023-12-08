@@ -40,7 +40,7 @@ return {
         additional_vim_regex_highlighting = { "org" },
       }
       opts["incremental_selection"] = {
-        enable = false
+        enable = false,
       }
     end,
   },
@@ -68,6 +68,7 @@ return {
       },
     },
   },
+
   -- Noice
   {
     "folke/noice.nvim",
@@ -75,10 +76,22 @@ return {
       opts.presets.lsp_doc_border = true
     end,
   },
+
+  -- Notify transparency
   {
     "rcarriga/nvim-notify",
-    opts= {
+    opts = {
       background_colour = "#000000",
-    }
-  }
+    },
+  },
+
+  -- Bufferline
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        mode = "tabs",
+      },
+    },
+  },
 }
