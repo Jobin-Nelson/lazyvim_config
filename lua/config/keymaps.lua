@@ -12,8 +12,8 @@ vim.keymap.set( "n", "<leader>fp", '<cmd>lua require("config.custom.pickers").fi
 vim.keymap.set( "n", "<leader>fj", '<cmd>lua require("config.custom.pickers").find_journal()<cr>', { desc = "Find Journal" })
 
 -- Buffers
-vim.keymap.set("n", "<b", "<cmd>BufferLineMovePrev<cr>", { desc = "Buffer Move Left" })
-vim.keymap.set("n", ">b", "<cmd>BufferLineMoveNext<cr>", { desc = "Buffer Move Right" })
+-- vim.keymap.set("n", "<b", "<cmd>BufferLineMovePrev<cr>", { desc = "Buffer Move Left" })
+-- vim.keymap.set("n", ">b", "<cmd>BufferLineMoveNext<cr>", { desc = "Buffer Move Right" })
 vim.keymap.set("n", "<leader>bk", '<cmd>call delete(expand("%:p")) <bar> bdelete!<cr>', { desc = "Buffer Kill" })
 vim.keymap.set("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", { desc = "Buffer Close" })
 
