@@ -1,20 +1,19 @@
-return {
-  -- Completion
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
-    end,
-  },
+local Util = require("lazyvim.util")
 
+return {
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
-    opts = {
-      pickers = {
+    keys = {
+      { "<leader>fb", false },
+    },
+    dependencies = {
+      "ghassan0/telescope-glyph.nvim",
+      "xiyaowong/telescope-emoji.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+    },
+    opts = function(_, opts)
+      opts.pickers = {
         buffers = {
           mappings = {
             n = {
@@ -22,8 +21,11 @@ return {
             },
           },
         },
-      },
-    },
+      }
+      require("telescope").load_extension("glyph")
+      require("telescope").load_extension("emoji")
+      require("telescope").load_extension("file_browser")
+    end,
   },
 
   -- Treesitter
@@ -59,6 +61,24 @@ return {
   -- Neo-tree
   {
     "nvim-neo-tree/neo-tree.nvim",
+    keys = {
+      { "<leader>fe", false },
+      { "<leader>fE", false },
+      {
+        "<leader>e",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>E",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
+      },
+    },
     opts = {
       window = {
         mappings = {
@@ -86,12 +106,12 @@ return {
   },
 
   -- Bufferline
-  {
-    "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        mode = "tabs",
-      },
-    },
-  },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   opts = {
+  --     options = {
+  --       mode = "tabs",
+  --     },
+  --   },
+  -- },
 }

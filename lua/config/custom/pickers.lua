@@ -4,7 +4,6 @@ local sorters = require('telescope.sorters')
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
-local utils = require('telescope.utils')
 local dropdown_theme = require('telescope.themes').get_dropdown()
 
 local function get_dotfiles()
@@ -27,12 +26,12 @@ local function get_dotfiles()
     local file_path = string.match(line, '.* - (.*)"$')
     table.insert(dotfiles, file_path)
   end
+  econf:close()
 
   if vim.tbl_isempty(dotfiles) then
     error('No dotfiles found in array FILES in econf.sh')
   end
 
-  econf:close()
   return dotfiles
 end
 
@@ -100,10 +99,14 @@ end
 
 M.find_zoxide = function()
   local opts = dropdown_theme
+
+  if vim.fn.executable('zoxide') ~= 1 then
+    error('No zoxide found in the system')
+  end
+
   pickers.new(opts, {
     prompt_title = 'Zoxide',
-    finder = finders.new_table({
-      results = utils.get_os_command_output(vim.fn.split('zoxide query -ls')),
+    finder = finders.new_oneshot_job(vim.fn.split('zoxide query -ls'), {
       entry_maker = zoxide_entry_maker,
     }),
     sorter = sorters.get_generic_fuzzy_sorter(opts),

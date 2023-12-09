@@ -1,12 +1,9 @@
 local M = {}
 
 M.delete_hidden_buffers = function()
-  local all_bufs = vim.tbl_filter(
-    function(buf)
-      return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted
-    end,
-    vim.api.nvim_list_bufs()
-  )
+  local all_bufs = vim.tbl_filter(function(buf)
+    return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted
+  end, vim.api.nvim_list_bufs())
   local all_wins = vim.api.nvim_list_wins()
   local visible_bufs = {}
   for _, win in ipairs(all_wins) do
@@ -18,7 +15,7 @@ M.delete_hidden_buffers = function()
       vim.cmd.bwipeout({ count = buf, bang = true })
     end
   end
-  print('All hidden buffers have been deleted')
+  print("All hidden buffers have been deleted")
 end
 
 M.scratch_buffer = function()
@@ -33,12 +30,12 @@ M.scratch_buffer = function()
         end
       end
     end
-    vim.cmd('vert sbuffer ' .. buf_nr)
+    vim.cmd("vert sbuffer " .. buf_nr)
     return
   end
 
   local buf_nr = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_name(buf_nr, 'scratch')
+  vim.api.nvim_buf_set_name(buf_nr, "scratch")
   vim.g.scratch_nr = buf_nr
   vim.cmd.vnew()
   vim.api.nvim_win_set_buf(0, buf_nr)
@@ -46,38 +43,42 @@ end
 
 M.rename_buffer = function()
   local original_filename = vim.api.nvim_buf_get_name(0)
-  local prompt = 'Rename: '
+  local prompt = "Rename: "
 
-  local new_filename = vim.fn.input({
+  vim.ui.input({
     prompt = prompt,
     default = original_filename,
-    completion = 'file',
-  })
+    completion = "file",
+  }, function(new_filename)
+    if new_filename == "" then
+      return
+    end
 
-  if new_filename == '' then
-    return
-  end
-
-  vim.cmd('update | saveas ++p ' .. new_filename)
-  local alternate_bufnr = vim.fn.bufnr('#')
-  if vim.fn.bufexists(alternate_bufnr) then
-    vim.api.nvim_buf_delete(alternate_bufnr, {})
-  end
-  vim.fn.delete(original_filename)
-  print('Renamed to ' .. new_filename)
+    vim.cmd("update | saveas ++p " .. new_filename)
+    local alternate_bufnr = vim.fn.bufnr("#")
+    if vim.fn.bufexists(alternate_bufnr) then
+      vim.api.nvim_buf_delete(alternate_bufnr, {})
+    end
+    vim.fn.delete(original_filename)
+    print("Renamed to " .. new_filename)
+  end)
 end
 
 M.start_journal = function()
-  local journal_dir = '~/playground/projects/second_brain/Resources/journal/'
-  local journal_path = vim.fs.normalize(string.format('%s/%s.md', journal_dir, os.date('%Y-%m-%d')))
-  vim.cmd('tabedit ' .. journal_path)
+  local journal_dir = "~/playground/projects/second_brain/Resources/journal/"
+  local journal_path = vim.fs.normalize(string.format("%s/%s.md", journal_dir, os.date("%Y-%m-%d")))
+  vim.cmd("tabedit " .. journal_path)
 end
 
 function M.set_indent()
   local ok, input = pcall(vim.fn.input, "Set indent value (>0 expandtab, <=0 noexpandtab): ")
-  if not ok then return end
+  if not ok then
+    return
+  end
   local indent = tonumber(input)
-  if not indent or indent == 0 then return end
+  if not indent or indent == 0 then
+    return
+  end
   vim.bo.expandtab = (indent > 0)
   indent = math.abs(indent)
   vim.bo.tabstop = indent
