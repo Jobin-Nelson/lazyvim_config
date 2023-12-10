@@ -10,9 +10,18 @@ return {
     dependencies = {
       "ghassan0/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
     },
     opts = function(_, opts)
+      local actions = require("telescope.actions")
+
+      opts.defaults = {
+        mappings = {
+          i = {
+            ["<C-s>"] = actions.cycle_previewers_next,
+            ["<C-a>"] = actions.cycle_previewers_prev,
+          },
+        },
+      }
       opts.pickers = {
         buffers = {
           mappings = {
@@ -22,9 +31,9 @@ return {
           },
         },
       }
+
       require("telescope").load_extension("glyph")
       require("telescope").load_extension("emoji")
-      require("telescope").load_extension("file_browser")
     end,
   },
 
@@ -105,13 +114,22 @@ return {
     },
   },
 
-  -- Bufferline
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   opts = {
-  --     options = {
-  --       mode = "tabs",
-  --     },
-  --   },
-  -- },
+  -- Luasnip
+  {
+    "L3MON4D3/LuaSnip",
+    opts = function(_, opts)
+      require("luasnip.loaders.from_lua").load({ paths =  {vim.fn.stdpath("config") .. "/snippets"  }})
+      local ls = require('luasnip')
+      vim.keymap.set({'i', 's'}, '<a-l>', function()
+        if ls.choice_active() then
+          ls.change_choice(1)
+        end
+      end)
+      vim.keymap.set({'i', 's'}, '<a-h>', function()
+        if ls.choice_active() then
+          ls.change_choice(-1)
+        end
+      end)
+    end,
+  },
 }

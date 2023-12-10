@@ -41,7 +41,7 @@ M.scratch_buffer = function()
   vim.api.nvim_win_set_buf(0, buf_nr)
 end
 
-M.rename_buffer = function()
+M.rename_file = function()
   local original_filename = vim.api.nvim_buf_get_name(0)
   local prompt = "Rename: "
 
@@ -50,7 +50,7 @@ M.rename_buffer = function()
     default = original_filename,
     completion = "file",
   }, function(new_filename)
-    if new_filename == "" then
+    if new_filename == "" or new_filename == nil then
       return
     end
 
@@ -71,19 +71,21 @@ M.start_journal = function()
 end
 
 function M.set_indent()
-  local ok, input = pcall(vim.fn.input, "Set indent value (>0 expandtab, <=0 noexpandtab): ")
-  if not ok then
-    return
-  end
-  local indent = tonumber(input)
-  if not indent or indent == 0 then
-    return
-  end
-  vim.bo.expandtab = (indent > 0)
-  indent = math.abs(indent)
-  vim.bo.tabstop = indent
-  vim.bo.softtabstop = indent
-  vim.bo.shiftwidth = indent
+  vim.ui.input({
+    prompt = "Set indent value (>0 expandtab, <=0 noexpandtab): ",
+  }, function(new_indent)
+    new_indent = tonumber(new_indent)
+    if new_indent == nil or new_indent == 0 then
+      return
+    end
+
+    vim.bo.expandtab = (new_indent > 0)
+    new_indent = math.abs(new_indent)
+    vim.bo.tabstop = new_indent
+    vim.bo.softtabstop = new_indent
+    vim.bo.shiftwidth = new_indent
+    print("Indent set to " .. new_indent)
+  end)
 end
 
 -- vim.keymap.set('n', '<leader>rt', M.rename_buffer)
