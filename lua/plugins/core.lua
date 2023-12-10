@@ -15,10 +15,28 @@ return {
       local actions = require("telescope.actions")
 
       opts.defaults = {
+        prompt_prefix = " ",
+        selection_caret = " ",
+        path_display = { "truncate" },
+        sorting_strategy = "ascending",
+        layout_config = {
+          horizontal = {
+            prompt_position = "top",
+            preview_width = 0.55,
+          },
+          vertical = {
+            mirror = false,
+          },
+          width = 0.87,
+          height = 0.80,
+          preview_cutoff = 120,
+        },
         mappings = {
           i = {
             ["<C-s>"] = actions.cycle_previewers_next,
             ["<C-a>"] = actions.cycle_previewers_prev,
+            ["<C-Down>"] = actions.cycle_history_next,
+            ["<C-Up>"] = actions.cycle_history_prev,
           },
         },
       }
@@ -118,14 +136,14 @@ return {
   {
     "L3MON4D3/LuaSnip",
     opts = function(_, opts)
-      require("luasnip.loaders.from_lua").load({ paths =  {vim.fn.stdpath("config") .. "/snippets"  }})
-      local ls = require('luasnip')
-      vim.keymap.set({'i', 's'}, '<a-l>', function()
+      require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+      local ls = require("luasnip")
+      vim.keymap.set({ "i", "s" }, "<a-l>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
       end)
-      vim.keymap.set({'i', 's'}, '<a-h>', function()
+      vim.keymap.set({ "i", "s" }, "<a-h>", function()
         if ls.choice_active() then
           ls.change_choice(-1)
         end
