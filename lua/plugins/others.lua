@@ -1,10 +1,5 @@
 return {
   {
-    "nvim-treesitter/playground",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    cmd = "TSPlaygroundToggle",
-  },
-  {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
     version = "2.*",

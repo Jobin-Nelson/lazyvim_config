@@ -8,10 +8,10 @@ return {
       { "<leader>fb", false },
     },
     dependencies = {
-      "ghassan0/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
     },
-    opts = function(_, opts)
+    config = function(_, opts)
+      local telescope = require('telescope')
       local actions = require("telescope.actions")
 
       opts.defaults = {
@@ -50,7 +50,7 @@ return {
         },
       }
 
-      require("telescope").load_extension("glyph")
+      telescope.setup(opts)
       require("telescope").load_extension("emoji")
     end,
   },

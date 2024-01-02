@@ -13,11 +13,11 @@ vim.keymap.set( 'n', '<leader>fj', '<cmd>lua require("config.custom.pickers").fi
 -- vim.keymap.set( 'n', '<leader>fe', '<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>', { desc = "File Browser (parent)" })
 -- vim.keymap.set( 'n', '<leader>fE', '<cmd>Telescope file_browser<cr>', { desc = "File Browser (cwd)" })
 vim.keymap.set( 'n', '<leader>fb', '<cmd>Telescope buffers sort_mru=true<cr>', { desc = "Find Buffers" })
-vim.keymap.set('n', '<leader>fS', '<cmd>lua require("luasnip.loaders").edit_snippet_files()<cr>', { desc = "Find Snippets" })
+vim.keymap.set( 'n', '<leader>fS', '<cmd>lua require("luasnip.loaders").edit_snippet_files()<cr>', { desc = "Find Snippets" })
 vim.keymap.set( 'n', '<leader>fg', '<cmd>Telescope emoji<cr>', { desc = "Find Emoji" })
 vim.keymap.set( 'n', '<leader>fG', '<cmd>Telescope glyph<cr>', { desc = "Find Glyphs" })
 vim.keymap.set( 'n', '<leader>gb', '<cmd>Telescope git_branches<cr>', { desc = "Git Branches" })
-vim.keymap.set( 'v', '<leader>gc', '<cmd>Telescope git_bcommits_range<cr>', { desc = "Git Branches" })
+vim.keymap.set( 'v', '<leader>gc', '<cmd>Telescope git_bcommits_range<cr>', { desc = "Git Buffer Commit Range" })
 
 -- Buffers
 vim.keymap.set("n", "<b", "<cmd>BufferLineMovePrev<cr>", { desc = "Buffer Move Left" })
